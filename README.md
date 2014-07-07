@@ -1,4 +1,4 @@
-# seneca-mongo-store
+# seneca-oracle-store
 
 ### Seneca node.js data-storage plugin for Oracle.
 
@@ -14,10 +14,7 @@ persistence.
 
 ### Support
 
-Current Version: 0.0.0
-
-Tested on: Node 0.10.24, Seneca 0.5.17
-
+TODO
 
 
 ### Quick example
