@@ -13,7 +13,12 @@ var shared = require('seneca-store-test')
 
 
 var si = seneca()
-si.use(require('..'),{})
+si.use(require('..'),{
+  hostname: 'localhost',
+  database: 'xe',
+  user: 'TEST',
+  password: 'TEST'
+})
 
 si.__testcount = 0
 var testcount = 0

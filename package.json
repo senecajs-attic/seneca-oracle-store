@@ -19,6 +19,11 @@
   ],
   "author": "Paolo Chiodi",
   "license": "MIT",
+  "dependencies": {
+    "node-uuid": "^1.4.1",
+    "oracle": "^0.3.7",
+    "underscore": "^1.6.0"
+  },
   "devDependencies": {
     "seneca": "~0.5.15",
     "mocha": "~1.18.2",
