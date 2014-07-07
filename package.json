@@ -1,0 +1,35 @@
+{
+  "name": "seneca-oracle-store",
+  "version": "0.0.0",
+  "description": "Seneca data store plugin for Oracle",
+  "main": "lib/oracle-store.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha test/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paolochiodi/seneca-oracle-store"
+  },
+  "keywords": [
+    "seneca",
+    "plugin",
+    "store",
+    "oracle",
+    "oraclexe"
+  ],
+  "author": "Paolo Chiodi",
+  "license": "MIT",
+  "devDependencies": {
+    "seneca": "~0.5.15",
+    "mocha": "~1.18.2",
+    "seneca-store-test": "~0.1.0"
+  },
+  "peerDependencies": {
+    "seneca": "*"
+  },
+  "files": [
+    "LICENSE.txt",
+    "README.md",
+    "lib"
+  ]
+}
