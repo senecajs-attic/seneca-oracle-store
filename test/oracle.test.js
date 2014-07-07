@@ -1,4 +1,4 @@
-/* Copyright (c) 2010-2014 Richard Rodger */
+/* Copyright (c) 2010-2014 Paolo Chiodi */
 "use strict";
 
 
