@@ -149,6 +149,7 @@ function limitstest(si,done) {
         cl.list$({limit$: 5, skip$: 2}, function (err, lst) {
           assert.ok(null == err)
           assert.equal(1, lst.length)
+          assert.ok(null == lst[0].rnum$)
           cb()
         })
       },
