@@ -47,6 +47,12 @@ describe('oracle', function(){
     sorttest(si,done)
   })
 
+  it('remove load', function(done){
+    testcount++
+    removeloadtest(si,done)
+  })
+
+
   it('close', function(done){
     shared.closetest(si,testcount,done)
   })
@@ -287,7 +293,7 @@ function fieldstest(si, done) {
 }
 
 function sorttest(si, done) {
-  console.log('sort')
+  console.log('SORT')
 
   async.series(
     {
@@ -364,6 +370,80 @@ function sorttest(si, done) {
           assert.equal(lst[0].p1, 'v3')
           assert.equal(lst[1].p1, 'v2')
           assert.equal(lst[2].p1, 'v1')
+          cb()
+        })
+      }
+    },
+    function (err, out) {
+      si.__testcount++
+      done()
+    }
+  )
+
+  si.__testcount++
+}
+
+function removeloadtest(si, done) {
+  console.log('REMOVE LOAD')
+
+  async.series(
+    {
+
+      remove: function (cb) {
+        console.log('remove')
+
+        var cl = si.make$('lmt')
+        // clear 'lmt' collection
+        cl.remove$({all$: true}, function (err, foo) {
+          assert.ok(null == err)
+          cb()
+        })
+      },
+
+      insert1st: function (cb) {
+        console.log('insert1st')
+
+        var cl = si.make$('lmt')
+        cl.p1 = 'v1'
+        cl.p2 = 'v1'
+
+        cl.save$(function (err, foo) {
+          assert.ok(null == err)
+          cb()
+        })
+      },
+
+      insert2nd: function (cb) {
+        console.log('insert2nd')
+
+        var cl = si.make$('lmt')
+        cl.p1 = 'v2'
+        cl.p2 = 'v2'
+
+        cl.save$(function (err, foo) {
+          assert.ok(null == err)
+          cb()
+        })
+      },
+
+      removeload: function (cb) {
+        console.log('removeload')
+
+        var cl = si.make({name$: 'lmt'})
+        cl.remove$({p1: 'v1', load$: true}, function (err, foo) {
+          assert.ok(null == err)
+          assert.equal('v1', foo.p1)
+          cb()
+        })
+      },
+
+      removenoload: function (cb) {
+        console.log('removenoload')
+
+        var cl = si.make({name$: 'lmt'})
+        cl.remove$({p1: 'v1', load$: false}, function (err, foo) {
+          assert.ok(null == err)
+          assert.ok(null == foo)
           cb()
         })
       }
