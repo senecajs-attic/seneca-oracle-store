@@ -18,3 +18,10 @@ CREATE TABLE "moon_bar" (
   "mark" FLOAT,
   "seneca" VARCHAR(255)
 );
+
+CREATE TABLE "lmt" (
+  "id" VARCHAR(255),
+  "p1" VARCHAR(255),
+  "p2" VARCHAR(255),
+  "seneca" VARCHAR(255)
+);
