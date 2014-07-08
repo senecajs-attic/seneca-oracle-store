@@ -42,6 +42,11 @@ describe('oracle', function(){
     fieldstest(si,done)
   })
 
+  it('sorting', function(done){
+    testcount++
+    sorttest(si,done)
+  })
+
   it('close', function(done){
     shared.closetest(si,testcount,done)
   })
@@ -268,6 +273,97 @@ function fieldstest(si, done) {
           assert.ok(null == err)
           assert.ok(null == lst[0].p1)
           assert.equal(lst[0].p2, 'v1')
+          cb()
+        })
+      }
+    },
+    function (err, out) {
+      si.__testcount++
+      done()
+    }
+  )
+
+  si.__testcount++
+}
+
+function sorttest(si, done) {
+  console.log('sort')
+
+  async.series(
+    {
+
+      remove: function (cb) {
+        console.log('remove')
+
+        var cl = si.make$('lmt')
+        // clear 'lmt' collection
+        cl.remove$({all$: true}, function (err, foo) {
+          assert.ok(null == err)
+          cb()
+        })
+      },
+
+      insert1st: function (cb) {
+        console.log('insert1st')
+
+        var cl = si.make$('lmt')
+        cl.p1 = 'v1'
+        cl.p2 = 'v1'
+
+        cl.save$(function (err, foo) {
+          assert.ok(null == err)
+          cb()
+        })
+      },
+
+      insert2nd: function (cb) {
+        console.log('insert2nd')
+
+        var cl = si.make$('lmt')
+        cl.p1 = 'v2'
+        cl.p2 = 'v2'
+
+        cl.save$(function (err, foo) {
+          assert.ok(null == err)
+          cb()
+        })
+      },
+
+      insert3rd: function (cb) {
+        console.log('insert3rd')
+
+        var cl = si.make$('lmt')
+        cl.p1 = 'v3'
+        cl.p2 = 'v3'
+
+        cl.save$(function (err, foo) {
+          assert.ok(null == err)
+          cb()
+        })
+      },
+
+      listasc: function (cb) {
+        console.log('listasc')
+
+        var cl = si.make({name$: 'lmt'})
+        cl.list$({sort$: { p1: 1 }}, function (err, lst) {
+          assert.ok(null == err)
+          assert.equal(lst[0].p1, 'v1')
+          assert.equal(lst[1].p1, 'v2')
+          assert.equal(lst[2].p1, 'v3')
+          cb()
+        })
+      },
+
+      listdesc: function (cb) {
+        console.log('listdesc')
+
+        var cl = si.make({name$: 'lmt'})
+        cl.list$({sort$: { p1: -1 }}, function (err, lst) {
+          assert.ok(null == err)
+          assert.equal(lst[0].p1, 'v3')
+          assert.equal(lst[1].p1, 'v2')
+          assert.equal(lst[2].p1, 'v1')
           cb()
         })
       }
