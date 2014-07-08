@@ -37,6 +37,11 @@ describe('oracle', function(){
     limitstest(si,done)
   })
 
+  it('fields', function(done){
+    testcount++
+    fieldstest(si,done)
+  })
+
   it('close', function(done){
     shared.closetest(si,testcount,done)
   })
@@ -163,6 +168,107 @@ function limitstest(si,done) {
             })
             cb()
           })
+        })
+      }
+    },
+    function (err, out) {
+      si.__testcount++
+      done()
+    }
+  )
+
+  si.__testcount++
+}
+
+function fieldstest(si, done) {
+  console.log('FIELDS')
+
+  async.series(
+    {
+
+      remove: function (cb) {
+        console.log('remove')
+
+        var cl = si.make$('lmt')
+        // clear 'lmt' collection
+        cl.remove$({all$: true}, function (err, foo) {
+          assert.ok(null == err)
+          cb()
+        })
+      },
+
+      insert1st: function (cb) {
+        console.log('insert1st')
+
+        var cl = si.make$('lmt')
+        cl.p1 = 'v1'
+        cl.p2 = 'v1'
+
+        cl.save$(function (err, foo) {
+          assert.ok(null == err)
+          cb()
+        })
+      },
+
+      insert2nd: function (cb) {
+        console.log('insert2nd')
+
+        var cl = si.make$('lmt')
+        cl.p1 = 'v2'
+        cl.p2 = 'v2'
+
+        cl.save$(function (err, foo) {
+          assert.ok(null == err)
+          cb()
+        })
+      },
+
+      insert3rd: function (cb) {
+        console.log('insert3rd')
+
+        var cl = si.make$('lmt')
+        cl.p1 = 'v3'
+        cl.p2 = 'v3'
+
+        cl.save$(function (err, foo) {
+          assert.ok(null == err)
+          cb()
+        })
+      },
+
+      listallfields: function (cb) {
+        console.log('listall')
+
+        var cl = si.make({name$: 'lmt'})
+        cl.list$({p1: 'v1'}, function (err, lst) {
+          assert.ok(null == err)
+          assert.equal(lst[0].p1, 'v1')
+          assert.equal(lst[0].p2, 'v1')
+          cb()
+        })
+      },
+
+      list1field: function (cb) {
+        console.log('list1field')
+
+        var cl = si.make({name$: 'lmt'})
+        cl.list$({p1: 'v1', fields$: ['p1']}, function (err, lst) {
+          assert.ok(null == err)
+          assert.ok(null == lst[0].p2)
+          assert.equal(lst[0].p1, 'v1')
+          cb()
+        })
+      },
+
+      listotherfield: function (cb) {
+        console.log('listotherfield')
+
+        var cl = si.make({name$: 'lmt'})
+        cl.list$({p1: 'v1', fields$: ['p2']}, function (err, lst) {
+          assert.ok(null == err)
+          assert.ok(null == lst[0].p1)
+          assert.equal(lst[0].p2, 'v1')
+          cb()
         })
       }
     },
