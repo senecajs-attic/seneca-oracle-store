@@ -87,6 +87,11 @@ The standard Seneca query format is supported:
    * you can use sort$, limit$, skip$ and fields$ together
 
 
+### Note on table and column names
+
+With Oracle, unquoted table and column names are case insensitive and treated as upper case.
+In order to consistently retrieve entity property names from database oracle-store quotes all names, meaning that you should quote names when creating tables and columns and use name whose case match exactly the entity property names.
+
 
 ## Unsupported features
 
