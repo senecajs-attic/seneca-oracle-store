@@ -254,6 +254,7 @@ function fieldstest(si, done) {
         var cl = si.make({name$: 'lmt'})
         cl.list$({p1: 'v1'}, function (err, lst) {
           assert.ok(null == err)
+          assert.ok(null != lst[0].id)
           assert.equal(lst[0].p1, 'v1')
           assert.equal(lst[0].p2, 'v1')
           cb()
@@ -266,6 +267,7 @@ function fieldstest(si, done) {
         var cl = si.make({name$: 'lmt'})
         cl.list$({p1: 'v1', fields$: ['p1']}, function (err, lst) {
           assert.ok(null == err)
+          assert.ok(null != lst[0].id)
           assert.ok(null == lst[0].p2)
           assert.equal(lst[0].p1, 'v1')
           cb()
@@ -278,6 +280,7 @@ function fieldstest(si, done) {
         var cl = si.make({name$: 'lmt'})
         cl.list$({p1: 'v1', fields$: ['p2']}, function (err, lst) {
           assert.ok(null == err)
+          assert.ok(null != lst[0].id)
           assert.ok(null == lst[0].p1)
           assert.equal(lst[0].p2, 'v1')
           cb()
