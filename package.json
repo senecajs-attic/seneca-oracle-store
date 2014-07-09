@@ -1,6 +1,6 @@
 {
   "name": "seneca-oracle-store",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Seneca data store plugin for Oracle",
   "main": "lib/oracle-store.js",
   "scripts": {
@@ -17,7 +17,7 @@
     "oracle",
     "oraclexe"
   ],
-  "author": "Paolo Chiodi",
+  "author": "Paolo Chiodi <chiodi84@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "node-uuid": "^1.4.1",

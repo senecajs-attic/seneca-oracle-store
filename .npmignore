@@ -1,3 +1,14 @@
 *~
 *.off
 *-off
+.*.swp
+._*
+.DS_Store
+.git
+.hg
+.lock-wscript
+.svn
+.wafpickle-*
+CVS
+npm-debug.log
+TODO.md
