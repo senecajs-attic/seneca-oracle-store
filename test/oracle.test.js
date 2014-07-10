@@ -52,6 +52,10 @@ describe('oracle', function(){
     removeloadtest(si,done)
   })
 
+  it('conditions extra', function(done) {
+    testcount++
+    conditionsextra(si,done)
+  })
 
   it('close', function(done){
     shared.closetest(si,testcount,done)
@@ -451,6 +455,94 @@ function removeloadtest(si, done) {
           cb()
         })
       }
+    },
+    function (err, out) {
+      si.__testcount++
+      done()
+    }
+  )
+
+  si.__testcount++
+}
+
+function conditionsextra(si, done) {
+  console.log('CONDITIONS EXTRA')
+
+  async.series(
+    {
+
+      remove: function (cb) {
+        console.log('remove')
+
+        var cl = si.make$('lmt')
+        // clear 'lmt' collection
+        cl.remove$({all$: true}, function (err, foo) {
+          assert.ok(null == err)
+          cb()
+        })
+      },
+
+      insert1st: function (cb) {
+        console.log('insert1st')
+
+        var cl = si.make$('lmt')
+        cl.p1 = 'v1'
+        cl.p2 = 'v1'
+
+        cl.save$(function (err, foo) {
+          assert.ok(null == err)
+          cb()
+        })
+      },
+
+      insert2nd: function (cb) {
+        console.log('insert2nd')
+
+        var cl = si.make$('lmt')
+        cl.p1 = 'v2'
+
+        cl.save$(function (err, foo) {
+          assert.ok(null == err)
+          cb()
+        })
+      },
+
+      listvalue: function (cb) {
+        console.log('listvalue')
+
+        var cl = si.make({name$: 'lmt'})
+        cl.list$({p2: 'v1'}, function (err, lst) {
+          assert.ok(null == err)
+          assert.equal(1, lst.length)
+          assert.equal('v1', lst[0].p1)
+          cb()
+        })
+      },
+
+      listnull: function (cb) {
+        console.log('listnull')
+
+        var cl = si.make({name$: 'lmt'})
+        cl.list$({p2: null}, function (err, lst) {
+          assert.ok(null == err)
+          assert.equal(1, lst.length)
+          assert.equal('v2', lst[0].p1)
+          cb()
+        })
+      },
+
+      listundefined: function (cb) {
+        console.log('listundefined')
+
+        var cl = si.make({name$: 'lmt'})
+        cl.list$({p2: undefined}, function (err, lst) {
+          assert.ok(null == err)
+          assert.equal(1, lst.length)
+          assert.equal('v2', lst[0].p1)
+          cb()
+        })
+      }
+
     },
     function (err, out) {
       si.__testcount++
