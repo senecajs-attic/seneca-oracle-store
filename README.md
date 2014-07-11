@@ -86,6 +86,23 @@ The standard Seneca query format is supported:
    * `entity.list$({f1:v1,...,fields$:['field1','field2']})` means only return the listed fields (avoids pulling lots of data out of the database)
    * you can use sort$, limit$, skip$ and fields$ together
 
+### Native Driver
+
+As with all seneca stores, you can access the native driver, in this case,
+the `node-oracle` `connection` object using `entity.native$(function(err,connectio){...})`.
+
+How to write a SQL query using node-oracle driver:
+
+```JavaScript
+var query = 'SELECT * FROM "orders WHERE "cust_id"=:1 AND "total" > :2';
+
+orders_ent.native$(function(err, connection){
+  connection.execute(query, ['customer', 1000], function(err, list) {
+    if(err) return done(err);
+    console.log("Found records:", list);
+  });
+}); // end native$
+```
 
 ### Note on table and column names
 
@@ -97,7 +114,6 @@ In order to consistently retrieve entity property names from database oracle-sto
 
 At the moment there is no support for:
   * connection pool
-  * native driver
   * sort$, limit$, skip$ in remove and save methods
 
 
@@ -109,5 +125,4 @@ See the [test README](https://github.com/paolochiodi/seneca-oracle-store/blob/ma
 ## TODO
 
 * add support for sort$, limit$, skip$ in remove and save methods
-* add support for native driver
 * add connection pool

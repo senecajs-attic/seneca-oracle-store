@@ -494,3 +494,70 @@ module.exports.conditionsextra = function(si, done) {
 
   si.__testcount++
 }
+
+module.exports.nativetest = function(si, done) {
+  console.log('NATIVE')
+
+  async.series(
+    {
+
+      remove: function (cb) {
+        console.log('remove')
+
+        var cl = si.make$('lmt')
+        // clear 'lmt' collection
+        cl.native$(function (err, connection) {
+          assert.ok(null == err)
+          connection.execute('DELETE FROM "lmt"', [], function(err, res) {
+            assert.ok(null == err)
+            cb()
+          })
+        })
+      },
+
+      insert1st: function (cb) {
+        console.log('insert1st')
+
+        var cl = si.make$('lmt')
+        cl.native$(function (err, connection) {
+          connection.execute('INSERT INTO "lmt" ("p1","p2") VALUES (:1,:2)', ['v1', 'v1'], function(err,res) {
+            assert.ok(null == err)
+            cb()
+          })
+        })
+      },
+
+      insert2nd: function (cb) {
+        console.log('insert2nd')
+
+        var cl = si.make$('lmt')
+        cl.native$(function (err, connection) {
+          connection.execute('INSERT INTO "lmt" ("p1","p2") VALUES (:1,:2)', ['v2', 'v2'], function(err,res) {
+            assert.ok(null == err)
+            cb()
+          })
+        })
+      },
+
+      listvalue: function (cb) {
+        console.log('listvalue')
+
+        var cl = si.make({name$: 'lmt'})
+        cl.native$(function (err, connection) {
+          connection.execute('SELECT * FROM "lmt"', [], function(err, res) {
+            assert.ok(null == err)
+            assert.equal(2, res.length)
+            cb()
+          })
+        })
+      }
+
+    },
+    function (err, out) {
+      si.__testcount++
+      done()
+    }
+  )
+
+  si.__testcount++
+}

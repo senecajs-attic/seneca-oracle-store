@@ -53,6 +53,11 @@ describe('oracle', function(){
     extra.conditionsextra(si,done)
   })
 
+  it('native', function(done) {
+    testcount++
+    extra.nativetest(si,done)
+  })
+
   it('close', function(done){
     shared.closetest(si,testcount,done)
   })
