@@ -17,7 +17,7 @@ persistence.
 If you're using this module, feel free to contact me on twitter if you
 have any questions! :) [@paolochiodi](http://twitter.com/paolochiodi)
 
-Current Version: 0.1.0
+Current Version: 0.1.1
 
 Tested on: Node 0.10.29, Seneca 0.5.18
 
