@@ -563,6 +563,138 @@ module.exports.updateextra = function(si, done) {
   si.__testcount++
 }
 
+module.exports.removeextra = function(si, done) {
+  console.log('REMOVE EXTRA')
+
+  async.series(
+    {
+
+      remove: function (cb) {
+        console.log('remove')
+
+        var cl = si.make$('lmt')
+        // clear 'lmt' collection
+        cl.remove$({all$: true}, function (err, foo) {
+          assert.ok(null == err)
+          cb()
+        })
+      },
+
+      insert1st: function (cb) {
+        console.log('insert1st')
+
+        var cl = si.make$('lmt')
+        cl.p1 = 'v1'
+        cl.p2 = 'v1'
+
+        cl.save$(function (err, foo) {
+          assert.ok(null == err)
+          cb()
+        })
+      },
+
+
+      insert2nd: function (cb) {
+        console.log('insert2nd')
+
+        var cl = si.make$('lmt')
+        cl.p1 = 'v2'
+        cl.p2 = 'v2'
+
+        cl.save$(function (err, foo) {
+          assert.ok(null == err)
+          cb()
+        })
+      },
+
+      insert3nd: function (cb) {
+        console.log('insert3nd')
+
+        var cl = si.make$('lmt')
+        cl.p1 = 'v3'
+        cl.p2 = 'v3'
+
+        cl.save$(function (err, foo) {
+          assert.ok(null == err)
+          cb()
+        })
+      },
+
+      insert4rd: function (cb) {
+        console.log('insert3rd')
+
+        var cl = si.make$('lmt')
+        cl.p1 = 'v4'
+        cl.p2 = 'v4'
+
+        cl.save$(function (err, foo) {
+          assert.ok(null == err)
+          cb()
+        })
+      },
+
+      metaquery: function (cb) {
+        console.log('metaquery')
+
+        var cl = si.make$('lmt')
+        cl.remove$({all$: true, limit$:1, skip$:1, sort$: { p1: 1}}, function (err, foo) {
+          assert.ok(null == err)
+
+          cl.list$({sort$: {p1: 1}}, function(err, lst) {
+            assert.ok(null == err)
+            assert.equal(3, lst.length)
+            assert.equal('v1', lst[0].p1)
+            assert.equal('v3', lst[1].p1)
+            assert.equal('v4', lst[2].p1)
+            cb()
+          })
+        })
+      },
+
+      limit: function (cb) {
+        console.log('limit')
+
+        var cl = si.make$('lmt')
+        cl.remove$({all$: true, limit$:1, sort$: {p1: 1}}, function (err, foo) {
+          assert.ok(null == err)
+
+          cl.list$({sort$: {p1: 1}}, function(err, lst) {
+            assert.ok(null == err)
+            assert.equal(2, lst.length)
+            assert.equal('v3', lst[0].p1)
+            assert.equal('v4', lst[1].p1)
+            cb()
+          })
+        })
+      },
+
+      skip: function (cb) {
+        console.log('skip')
+
+        var cl = si.make$('lmt')
+        cl.remove$({all$: true, skip$:1, sort$: { p1: 1}}, function (err, foo) {
+          assert.ok(null == err)
+
+          cl.list$({sort$: {p1: 1}}, function(err, lst) {
+            assert.ok(null == err)
+            assert.equal(1, lst.length)
+            assert.equal('v3', lst[0].p1)
+            cb()
+          })
+        })
+      }
+
+    },
+    function (err, out) {
+      si.__testcount++
+      done()
+    }
+  )
+
+  si.__testcount++
+}
+
+
 module.exports.nativetest = function(si, done) {
   console.log('NATIVE')
 

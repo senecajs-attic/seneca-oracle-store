@@ -58,6 +58,11 @@ describe('oracle', function(){
     extra.updateextra(si,done)
   })
 
+  it('remove extra', function(done) {
+    testcount++
+    extra.removeextra(si,done)
+  })
+
   it('native', function(done) {
     testcount++
     extra.nativetest(si,done)

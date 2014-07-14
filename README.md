@@ -114,7 +114,6 @@ In order to consistently retrieve entity property names from database oracle-sto
 
 At the moment there is no support for:
   * connection pool
-  * sort$, limit$, skip$ in remove and save methods
 
 
 ## Test
@@ -124,5 +123,4 @@ See the [test README](https://github.com/paolochiodi/seneca-oracle-store/blob/ma
 
 ## TODO
 
-* add support for sort$, limit$, skip$ in remove and save methods
 * add connection pool
