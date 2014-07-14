@@ -53,6 +53,11 @@ describe('oracle', function(){
     extra.conditionsextra(si,done)
   })
 
+  it('update extra', function(done) {
+    testcount++
+    extra.updateextra(si,done)
+  })
+
   it('native', function(done) {
     testcount++
     extra.nativetest(si,done)

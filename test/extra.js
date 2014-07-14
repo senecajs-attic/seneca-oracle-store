@@ -4,6 +4,7 @@
 var assert = require('assert')
 var async = require('async')
 
+var scratch = {}
 
 module.exports.limitstest = function(si,done) {
   console.log('LIMITS')
@@ -481,6 +482,73 @@ module.exports.conditionsextra = function(si, done) {
           assert.ok(null == err)
           assert.equal(1, lst.length)
           assert.equal('v2', lst[0].p1)
+          cb()
+        })
+      }
+
+    },
+    function (err, out) {
+      si.__testcount++
+      done()
+    }
+  )
+
+  si.__testcount++
+}
+
+module.exports.updateextra = function(si, done) {
+  console.log('UPDATE EXTRA')
+
+  async.series(
+    {
+
+      remove: function (cb) {
+        console.log('remove')
+
+        var cl = si.make$('lmt')
+        // clear 'lmt' collection
+        cl.remove$({all$: true}, function (err, foo) {
+          assert.ok(null == err)
+          cb()
+        })
+      },
+
+      insert1st: function (cb) {
+        console.log('insert1st')
+
+        var cl = si.make$('lmt')
+        cl.p1 = 'v1'
+        cl.p2 = 'v1'
+
+        cl.save$(function (err, foo) {
+          assert.ok(null == err)
+          scratch.lmt1 = foo
+          cb()
+        })
+      },
+
+      insertnull: function (cb) {
+        console.log('insertnull')
+
+        var cl = si.make$('lmt')
+        cl.p1 = undefined
+        cl.p2 = null
+
+        cl.save$(function (err, foo) {
+          assert.ok(null == err)
+          cb()
+        })
+      },
+
+      updatenull: function (cb) {
+        console.log('updatenull')
+
+        var cl = scratch.lmt1
+        cl.p1 = undefined
+        cl.p2 = null
+
+        cl.save$(function (err, foo) {
+          assert.ok(null == err)
           cb()
         })
       }
