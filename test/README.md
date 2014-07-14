@@ -10,6 +10,7 @@ Use the following queries to create expected tables.
     "id" VARCHAR(255),
     "p1" VARCHAR(255),
     "p2" VARCHAR(255),
+    "p3" VARCHAR(255),
     "seneca" VARCHAR(255)
   );
 
