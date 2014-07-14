@@ -1,6 +1,6 @@
 {
   "name": "seneca-oracle-store",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Seneca data store plugin for Oracle",
   "main": "lib/oracle-store.js",
   "scripts": {
