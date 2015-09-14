@@ -20,6 +20,8 @@ var si = seneca();
 
 si.use(require('..'),{
   connectString: 'localhost/XE', // Oracle Connection String
+  //hostname: 'localhost',
+  //database: 'XE',
   user: 'TEST',
   password: 'TEST'
 })
