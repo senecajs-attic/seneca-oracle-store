@@ -120,7 +120,6 @@ module.exports.limitstest = function(si,done) {
             assert.ok(null == err)
 
             foo.load$({id: foo.id}, function(err, foo) {
-
               assert.ok(foo.id)
               assert.equal(foo.p1, 'value1')
               assert.equal(foo.p2, 2.2)
@@ -746,7 +745,7 @@ module.exports.nativetest = function(si, done) {
         cl.native$(function (err, connection) {
           connection.execute('SELECT * FROM "lmt"', [], function(err, res) {
             assert.ok(null == err)
-            assert.equal(2, res.length)
+            assert.equal(2, res.rows.length)
             cb()
           })
         })

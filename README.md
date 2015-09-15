@@ -27,9 +27,7 @@ Tested on: Node 0.10.29, Seneca 0.5.19
 ```JavaScript
 var seneca = require('seneca')()
 seneca.use('oracle-store',{
-  hostname: "localhost",
-  port: 1521,
-  database: "xe", // System ID (SID)
+  connectString: "localhost/XE" // Oracle Connection String
   user: "oracle",
   password: "oracle"
 })

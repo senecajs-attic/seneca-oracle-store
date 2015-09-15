@@ -2,6 +2,16 @@
 ## Create test database
 
 The test script expect a oracle instance on localhost, with user TEST identified by password TEST.
+Use the following queries to create the USER/SCHEMA (execute with Oracle system user).
+
+```sql
+CREATE USER TEST IDENTIFIED BY TEST;
+GRANT CONNECT, RESOURCE TO TEST;
+GRANT INSERT ANY TABLE TO TEST;
+GRANT SELECT ANY TABLE TO TEST;
+GRANT SELECT ANY SEQUENCE TO TEST;
+```
+
 Use the following queries to create expected tables.
 
 ```sql

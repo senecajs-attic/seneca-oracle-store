@@ -2,18 +2,26 @@
 "use strict";
 
 
-var seneca = require('seneca')
+var seneca = require('seneca');
+var Lab = require('lab');
+var lab = exports.lab = Lab.script();
 
+var shared = require('seneca-store-test');
+var extra = require('./extra');
 
-var shared = require('seneca-store-test')
-var extra = require('./extra')
+var Code = require('code');
+var describe = lab.describe;
+var it = lab.it;
+var before = lab.before;
+var after = lab.after;
+var expect = Code.expect;
 
+var si = seneca();
 
-
-var si = seneca()
 si.use(require('..'),{
-  hostname: 'localhost',
-  database: 'xe',
+  connectString: 'localhost/XE', // Oracle Connection String
+  //hostname: 'localhost',
+  //database: 'XE',
   user: 'TEST',
   password: 'TEST'
 })
