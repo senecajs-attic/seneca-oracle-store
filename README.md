@@ -1,3 +1,8 @@
+# Project Status :
+
+This plugin is not being supported by the Seneca organisation, and is no longer proven to work with the latest version of Seneca.
+If you are interested in maintaining this project, please contact us via the issue queue.
+
 # seneca-oracle-store
 
 ### Seneca node.js data-storage plugin for Oracle.
